@@ -97,7 +97,7 @@ spec:
             - containerPort: 3000
           env:
             - name: BACKEND_HOST
-              value: "backend-service"
+              value: "backend-service.default.svc.cluster.local"
 
 ---
 apiVersion: v1
