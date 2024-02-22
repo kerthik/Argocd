@@ -56,7 +56,7 @@ spec:
              - containerPort: 8000
            env:
              - name: MONGO_URI
-               value: "mongodb://mongodb-service/to-do-list"
+               value: "mongodb://172.16.0.52:27017/to-do-list"
              - name: JWT_SECRET
                value: "7h4t1ycbEUNUMQ8wnXWx8qB1MWiCQJxVGf"
 
