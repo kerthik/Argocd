@@ -1,0 +1,122 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo
+          ports:
+            - containerPort: 27017
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 27017
+  type: LoadBalancer
+
+
+
+---
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: backend-deployment
+ spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: backend
+   template:
+     metadata:
+       labels:
+         app: backend
+     spec:
+       containers:
+         - name: backend
+           image: kerthik087/todoapplication-part2:backend
+           ports:
+             - containerPort: 8000
+           env:
+             - name: MONGO_URI
+               value: "MONGO_URI=mongodb://mongodb:27017/to-do-list"
+             - name: JWT_SECRET
+               value: "7h4t1ycbEUNUMQ8wnXWx8qB1MWiCQJxVGf"
+
+---
+ apiVersion: v1
+ kind: Service
+ metadata:
+   name: backend-service
+ spec:
+   selector:
+     app: backend
+   ports:
+     - protocol: TCP
+       port: 80
+       targetPort: 8000
+   type: LoadBalancer
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas:   1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: kerthik087/todoapplication-part2:frontend
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BACKEND_HOST
+              value: "backend-service"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
+  
+
+
+
+
+
+
+   
