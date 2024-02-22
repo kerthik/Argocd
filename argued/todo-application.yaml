@@ -51,12 +51,12 @@ spec:
      spec:
        containers:
          - name: backend
-           image: kerthik087/todoapplication-part2:backend
+           image:  kerthik087/todopart3:backend
            ports:
              - containerPort: 8000
            env:
              - name: MONGO_URI
-               value: "MONGO_URI=mongodb://mongodb:27017/to-do-list"
+               value: "MONGO_URI=mongodb://mongodb-service/to-do-list"
              - name: JWT_SECRET
                value: "7h4t1ycbEUNUMQ8wnXWx8qB1MWiCQJxVGf"
 
@@ -92,7 +92,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: kerthik087/todoapplication-part2:frontend
+          image: kerthik087/todopart3:frontend
           ports:
             - containerPort: 3000
           env:
