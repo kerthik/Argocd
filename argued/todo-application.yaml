@@ -51,7 +51,7 @@ spec:
      spec:
        containers:
          - name: backend
-           image: kerthik087/todo4:backend
+           image: kerthik087/backend:v0
            ports:
              - containerPort: 8000
            env:
@@ -92,7 +92,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: kerthik087/todo4:frontend
+          image: kerthik087/frontend:v0
           ports:
             - containerPort: 3000
           env:
